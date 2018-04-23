@@ -8,8 +8,11 @@ class MyMain extends Component {
   render() {
     return (
       <div>
-         < MyNavBar />
+          {/*
+               < MyNavBar />
          < MyMainContainer />
+        */}
+    
       </div>
     );
   }
