@@ -1,63 +1,56 @@
 import React, { Component } from 'react';
 import './App.css';
+import MyNavBarLogin from './MyNavBarLogin';
+import {
+  Collapse,
+  Navbar,
+  NavbarToggler,
+  NavbarBrand,
+  Nav,
+  NavItem,
+  NavLink,
+  UncontrolledDropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem } from 'reactstrap';
 
 class MyNavBar extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            items: [],
-            loading: false,
-            loaded: false
-        };
+  constructor(props) {
+    super(props);
+
+    this.toggle = this.toggle.bind(this);
+    this.state = {
+      isOpen: false
     };
-
-  loadData() {
-    return fetch('https://api.mercadolibre.com/sites/MLA/categories')
-      .then(function(res){
-        return res.json()
-      }).then((res) => {
-        this.setState({items: res})
-        console.log(res)
-        res.forEach(element => {
-          console.log(element)
-          })
-        })
+  }
+  toggle() {
+    this.setState({
+      isOpen: !this.state.isOpen
+    });
   }
 
-  
-  componentDidMount() {
-    this.setState({
-      loading: true
-    });
-    this.setState({
-      loaded: false
-    });
-    this.loadData()
-    .then(() => {
-      this.setState({
-        loading: false
-      })
-      this.setState({
-        loaded: true
-      })
-    })
-  }
   
   render() {
-    if(this.state.loading) {
       return (
         <div>
-            <p>Cargando</p>
+          <Navbar color="light" light expand="md">
+            <NavbarBrand href="/">EasyBuy</NavbarBrand>
+            <NavbarToggler onClick={this.toggle} />
+            <Collapse isOpen={this.state.isOpen} navbar>
+              <Nav className="ml-auto" navbar>
+                <NavItem>
+                  <MyNavBarLogin/>
+                </NavItem>
+              </Nav>
+            </Collapse>
+          </Navbar>
         </div>
-      );        
+      );
     }
-    console.log(this.state.items)
-    return (
-      <div>
-          <p>Prueba completo</p>
-      </div>
-    );
-  }
 }
 
 export default MyNavBar;
+
+
+
+
