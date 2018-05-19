@@ -1,3 +1,16 @@
 .MyInline {
     display: inline-block;
 }
+
+.cart{
+    max-width: 200px;
+}
+
+.MyPadding25{
+    padding: 25px 100px;
+}
+
+.MyCardDiv{
+    width: 200px;
+    
+}
