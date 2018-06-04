@@ -3,6 +3,8 @@ import './App.css';
 import MySearch from './MySearch.jsx';
 import MyTrends from './MyTrends.jsx';
 import MyLoading from './MyLoading.jsx';
+import MySignUpModalContainer from './MySignUpModalContainer.jsx';
+import MyProductView from './MyProductView.jsx'
 
 class MyMainContainer extends Component {
 
@@ -63,6 +65,8 @@ class MyMainContainer extends Component {
         <div>
           < MySearch />
           < MyTrends />
+          < MySignUpModalContainer />
+          < MyProductView />
 
         </div>
       );
@@ -71,6 +75,8 @@ class MyMainContainer extends Component {
         <div>
           < MySearch />
           < MyLoading />
+          < MySignUpModalContainer />
+          < MyProductView />
         </div>
     )}
 }

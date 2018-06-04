@@ -14,10 +14,12 @@ class MyNavBarLogin extends Component {
         this.state = {
             logged: localStorage.getItem("isLogged"),
             popoverOpen: false
+            
         }
         this.doLogin = this.doLogin.bind(this)
         this.doLogout = this.doLogout.bind(this)
         this.toggle = this.toggle.bind(this);
+        
     }
 
     doLogin() {

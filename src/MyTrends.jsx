@@ -8,7 +8,7 @@ class MyTrends extends Component {
     render() {
         return (
             <div>
-               <p>Mas Buscados</p>
+               <p>Más Buscados</p>
                < MyTrendsItem 
                     image="https://http2.mlstatic.com/teclado-mecanico-redragon-yama-k550-negro-blanco-rgb-envio-D_NQ_NP_729998-MLA25605755081_052017-F.webp"
                     price="2.317" 
