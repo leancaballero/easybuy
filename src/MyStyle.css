@@ -14,3 +14,7 @@
     width: 200px;
     
 }
+
+.boxStyle{
+    display: -webkit-box;
+}

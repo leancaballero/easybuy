@@ -3,8 +3,8 @@ import './App.css';
 import MySearch from './MySearch.jsx';
 import MyTrends from './MyTrends.jsx';
 import MyLoading from './MyLoading.jsx';
-import MySignUpModalContainer from './MySignUpModalContainer.jsx';
 import MyProductView from './MyProductView.jsx'
+import MyTrendsItem from './MyTrendsItem';
 
 class MyMainContainer extends Component {
 
@@ -12,12 +12,28 @@ class MyMainContainer extends Component {
     super(props);
 
     this.state = {
+      displayType: "index",
+      queryString: "",
       loading: true,
       titleList: [],
       priceList: [],
       urlList: [],
-      imgList: []
+      imgList: [],
+      titleListQ: [],
+      priceListQ: [],
+      urlListQ: [],
+      imgListQ: []
     };
+    this.onGo = this.onGo.bind(this);
+    this.onQuery = this.onQuery.bind(this);
+  }
+
+  onGo(componente){
+    this.setState({ displayType: componente})
+  }
+
+  onQuery(query){
+    this.setState({ queryString: query})
   }
 
   loadData() {
@@ -48,6 +64,27 @@ class MyMainContainer extends Component {
       })
   }
 
+  loadQuery(){
+    return fetch('https://api.mercadolibre.com/sites/MLA/search?q=' + this.state.queryString)
+    .then(function(response) {
+      return response.json()
+    }).then((response) => {
+      fetch('https://api.mercadolibre.com/items/' + response.results[0].id)
+        .then(function(response) {
+          return response.json()
+        }).then((response) => {
+          const newTitleListQ = this.state.titleListQ.concat(response.title)
+          this.setState({ titleListQ: newTitleListQ })
+          const newPriceListQ = this.state.priceListQ.concat(response.price)
+          this.setState({ priceListQ: newPriceListQ })
+          const newUrlListQ = this.state.urlListQ.concat(response.permalink)
+          this.setState({ urlListQ: newUrlListQ })
+          const newImgListQ = this.state.imgListQ.concat(response.pictures[0].url)
+          this.setState({ imgListQ: newImgListQ })
+        })
+    })
+  }
+
   componentDidMount() {
     this.setState({ loading: true });
     this.loadData()
@@ -60,25 +97,31 @@ class MyMainContainer extends Component {
 
   
   render() {
-    if (this.state.priceList.length == 50) {
-      return (
-        <div>
-          < MySearch />
-          < MyTrends />
-          < MySignUpModalContainer />
-          < MyProductView />
-
-        </div>
-      );
+    switch(this.state.displayType){
+      case "search":
+        this.loadQuery();
+        return (
+            <div>
+              < MySearch go={this.onGo} goQuery={this.onQuery}/>
+              < MyTrends titleList={this.state.titleListQ} priceList={this.state.priceListQ} urlList={this.state.urlListQ} imgList={this.state.imgListQ} />
+            </div>
+          );
+      case "index":
+        if (this.state.priceList.length == 50) {
+          return (
+            <div>
+              < MySearch go={this.onGo} goQuery={this.onQuery}/>
+              < MyTrends titleList={this.state.titleList} priceList={this.state.priceList} urlList={this.state.urlList} imgList={this.state.imgList} />
+            </div>
+          );
+        }
+        return(
+            <div>
+              < MySearch />
+              < MyLoading />
+            </div>
+        )}
     }
-    return(
-        <div>
-          < MySearch />
-          < MyLoading />
-          < MySignUpModalContainer />
-          < MyProductView />
-        </div>
-    )}
 }
 
 export default MyMainContainer;

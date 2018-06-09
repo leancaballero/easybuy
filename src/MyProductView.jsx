@@ -21,7 +21,7 @@ class MyProductView extends Component {
   render() {
     return (
       <div>
-        <Button color="danger" onClick={this.toggle}>Botón Producto</Button>
+        <Button color="danger" onClick={this.toggle}>Ver</Button>
         <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
           <ModalHeader toggle={this.toggle}>Test</ModalHeader>
           <ModalBody>

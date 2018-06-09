@@ -20,13 +20,15 @@ class MySignUpModalContainer extends Component {
   }
 
   render() {
+    var TextList=["Nombre", "Apellido", "Contraseña", "E-mail", "Fecha de Nacimiento", "Provincia", "Dirección de envío", "Código Postal", "Número de Teléfono"] 
+    var TypeLists=["text", "text", "password", "text", "date", "text", "text", "text", "text"] 
     return (
       <div>
-        <Button color="danger" onClick={this.toggle}>Registrarse Modal</Button>
+        <Button color="link" onClick={this.toggle}>Registrarse Modal</Button>
         <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
           <ModalHeader toggle={this.toggle}>Registrarse</ModalHeader>
           <ModalBody>
-              < MySignUp />
+              {TextList.map((val,i) => < MySignUp key={i} obj={val} text={TextList[i]} type={TypeLists} />)}
           </ModalBody>
           <ModalFooter>
             <Button color="primary" onClick={this.toggle}>Crear Usuario</Button>{' '}
